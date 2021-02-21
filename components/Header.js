@@ -1,18 +1,35 @@
 import Link from "next/link";
+import styled from "styled-components";
+
+const StyledNav = styled.nav`
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  justify-content: center;
+`;
+
+const StyledLinkItem = styled.div`
+  margin-left: 10px;
+  padding: 10px;
+  font-weight: bold;
+`;
 
 export default function Header() {
   return (
-    <>
-      <header className="header">
-        <nav className="nav">
+    <header>
+      <StyledNav>
+        <StyledLinkItem>
           <Link href="/">
-            <a>Blog</a>
+            <a>HOME</a>
           </Link>
+        </StyledLinkItem>
+
+        <StyledLinkItem>
           <Link href="/about">
-            <a>About</a>
+            <a>ABOUT ME</a>
           </Link>
-        </nav>
-      </header>
-    </>
+        </StyledLinkItem>
+      </StyledNav>
+    </header>
   );
 }

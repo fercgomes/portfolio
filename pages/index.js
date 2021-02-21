@@ -5,8 +5,9 @@ import PostList from "../components/PostList";
 export default function Index({ title, description, posts, ...props }) {
   return (
     <Layout pageTitle={title}>
-      <h1 className="title">Welcome</h1>
-      <p className="description">{description}</p>
+      {/* <h1 className="title">Welcome</h1>
+      <p className="description">{description}</p> */}
+
       <PostList posts={posts} />
     </Layout>
   );

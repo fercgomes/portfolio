@@ -1,5 +1,10 @@
 import Head from "next/head";
+import styled from "styled-components";
 import Header from "./Header";
+
+const Container = styled.div`
+  margin: 36px 0;
+`;
 
 export default function Layout({ children, pageTitle, ...props }) {
   return (
@@ -10,9 +15,11 @@ export default function Layout({ children, pageTitle, ...props }) {
       </Head>
       <section className="layout">
         <Header />
-        <div className="content">{children}</div>
+
+        <Container>{children}</Container>
       </section>
-      <footer>Made by me</footer>
+
+      {/* <footer>Made by me</footer> */}
     </>
   );
 }

@@ -1,23 +1,49 @@
 import matter from "gray-matter";
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import styled from "styled-components";
 import Layout from "../../components/Layout";
+
+const StyledArticle = styled.article`
+  width: 50%;
+  margin: auto;
+`;
+
+const PostTitle = styled.h1`
+  font-size: 2em;
+  margin: 0;
+`;
+
+const PostDescription = styled.p`
+  margin: 0;
+`;
+
+const PostContent = styled.div`
+  margin: 24px 0;
+`;
+
+const Container = styled.div`
+  margin: 36px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
 
 export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
   if (!frontmatter) return <></>;
 
   return (
     <Layout pageTitle={`${siteTitle} | ${frontmatter.title}`}>
-      <Link href="/">
-        <a>Back to post list</a>
-      </Link>
-      <article>
-        <h1>{frontmatter.title}</h1>
-        <p>By {frontmatter.author}</p>
-        <div>
-          <ReactMarkdown source={markdownBody} />
-        </div>
-      </article>
+      <Container>
+        <StyledArticle>
+          <PostTitle>{frontmatter.title}</PostTitle>
+          <PostDescription>By {frontmatter.author}</PostDescription>
+
+          <PostContent>
+            <ReactMarkdown source={markdownBody} />
+          </PostContent>
+        </StyledArticle>
+      </Container>
     </Layout>
   );
 }
