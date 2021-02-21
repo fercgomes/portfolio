@@ -1,6 +1,6 @@
 import matter from "gray-matter";
 import Layout from "../components/Layout";
-import PostList from "../components/PostList";
+import ProjectList from "../components/ProjectList";
 
 export default function Index({ title, description, posts, ...props }) {
   return (
@@ -8,7 +8,7 @@ export default function Index({ title, description, posts, ...props }) {
       {/* <h1 className="title">Welcome</h1>
       <p className="description">{description}</p> */}
 
-      <PostList posts={posts} />
+      <ProjectList posts={posts} />
     </Layout>
   );
 }
@@ -31,7 +31,7 @@ export async function getStaticProps() {
       };
     });
     return data;
-  })(require.context("../posts", true, /\.md$/));
+  })(require.context("../projects", true, /\.md$/));
 
   return {
     props: {

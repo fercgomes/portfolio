@@ -1,5 +1,5 @@
 import matter from "gray-matter";
-import ReactMarkdown from "react-markdown";
+import ReactMarkdownWithHtml from "react-markdown/with-html";
 import styled from "styled-components";
 import Layout from "../../components/Layout";
 
@@ -37,10 +37,10 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
       <Container>
         <StyledArticle>
           <PostTitle>{frontmatter.title}</PostTitle>
-          <PostDescription>By {frontmatter.author}</PostDescription>
+          <PostDescription>{frontmatter.description}</PostDescription>
 
-          <PostContent>
-            <ReactMarkdown source={markdownBody} />
+          <PostContent style={{ marginTop: 64 }}>
+            <ReactMarkdownWithHtml source={markdownBody} allowDangerousHtml />
           </PostContent>
         </StyledArticle>
       </Container>
@@ -49,9 +49,9 @@ export default function BlogPost({ siteTitle, frontmatter, markdownBody }) {
 }
 
 export async function getStaticProps({ ...ctx }) {
-  const { postname } = ctx.params;
+  const { projectname } = ctx.params;
 
-  const content = await import(`../../posts/${postname}.md`);
+  const content = await import(`../../projects/${projectname}.md`);
   const config = await import(`../../siteconfig.json`);
   const data = matter(content.default);
 
@@ -65,7 +65,7 @@ export async function getStaticProps({ ...ctx }) {
 }
 
 export async function getStaticPaths() {
-  const blogSlugs = ((context) => {
+  const projectSlugs = ((context) => {
     const keys = context.keys();
     const data = keys.map((key, index) => {
       let slug = key.replace(/^.*[\\\/]/, "").slice(0, -3);
@@ -73,9 +73,9 @@ export async function getStaticPaths() {
       return slug;
     });
     return data;
-  })(require.context("../../posts", true, /\.md$/));
+  })(require.context("../../projects", true, /\.md$/));
 
-  const paths = blogSlugs.map((slug) => `/post/${slug}`);
+  const paths = projectSlugs.map((slug) => `/project/${slug}`);
 
   return {
     paths,

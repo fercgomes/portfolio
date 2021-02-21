@@ -1,14 +1,13 @@
+import { Container } from "../components/Container";
 import Layout from "../components/Layout";
 
 export default function About({ title, description, ...props }) {
   return (
     <>
       <Layout pageTitle={`${title} | About`} description={description}>
-        <h1 className="h1">Welcome to my blog</h1>
-
-        <p className="description">{description}</p>
-
-        <p>balbal lorem</p>
+        <Container>
+          <p className="description">{description}</p>
+        </Container>
       </Layout>
     </>
   );
