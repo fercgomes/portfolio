@@ -26,6 +26,17 @@ const Description = styled.p`
 export default function ProjectList({ posts: projects }) {
   if (projects === "undefined") return null;
 
+  const captureProjectOpen = (projectSlug) => {
+    if (
+      process.env.NEXT_PUBLIC_POSTHOG_PROJECT_TOKEN &&
+      process.env.NEXT_PUBLIC_POSTHOG_HOST
+    ) {
+      import("posthog-js").then(({ default: posthog }) => {
+        posthog.capture("project_opened", { project_slug: projectSlug });
+      });
+    }
+  };
+
   return (
     <Container>
       {!projects && <div>No posts!</div>}
@@ -36,7 +47,9 @@ export default function ProjectList({ posts: projects }) {
               <PostItem key={project.slug}>
                 <Title>
                   <Link href={{ pathname: `/project/${project.slug}` }}>
-                    <a>{project.frontmatter.title}</a>
+                    <a onClick={() => captureProjectOpen(project.slug)}>
+                      {project.frontmatter.title}
+                    </a>
                   </Link>
                 </Title>
                 <Description>{project.frontmatter.description}</Description>
